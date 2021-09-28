@@ -132,3 +132,5 @@ ffmpeg.exe
 ffplay.exe
 ffprobe.exe
 audio_effects.py
+
+.DS_Store

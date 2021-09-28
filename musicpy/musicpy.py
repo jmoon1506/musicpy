@@ -275,6 +275,9 @@ def play(current_chord,
         result_file = name
         pygame.mixer.music.load(result_file)
         pygame.mixer.music.play()
+        clock = pygame.time.Clock()
+        while pygame.mixer.music.get_busy():
+            clock.tick(30) # check if playback has finished
     else:
         return file
 
