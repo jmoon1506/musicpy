@@ -3313,7 +3313,21 @@ def arpeggio(chord_type,
     return result
 
 
-arp = arpeggio
+def arp(start,
+             mode=None,
+             duration=0.25,
+             addition=None,
+             interval=0.25,
+             cummulative=True,
+             pitch=4,
+             b=None,
+             sharp=None,
+             ind=0,
+             start_time=0):
+    
+    return getchord(start, mode=mode, duration=duration, addition=addition, 
+        cummulative=cummulative, pitch=pitch, b=b, sharp=sharp, ind=ind, 
+        start_time=start_time).set(duration,interval)
 
 
 def distribute(current_chord,
