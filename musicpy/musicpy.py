@@ -14,6 +14,7 @@ from mido.midifiles.tracks import MidiTrack
 from mido.midifiles.meta import MetaMessage
 from .database import *
 from .structures import *
+from .constants import *
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
