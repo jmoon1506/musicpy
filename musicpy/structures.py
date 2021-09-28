@@ -793,7 +793,10 @@ class chord:
     def __mod__(self, alist):
         types = type(alist)
         if types in [list, tuple]:
-            return self.set(*alist)
+            if len(alist) == 1:
+                return self.set(alist[0], alist[0])
+            else:
+                return self.set(*alist)
         elif types == int:
             temp = copy(self)
             for i in range(alist - 1):
