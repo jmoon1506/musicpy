@@ -928,7 +928,7 @@ class chord:
         return self.down()
 
     def __invert__(self):
-        return self.reverse()
+        return self.reverse_chord()
 
     def __floordiv__(self, obj):
         types = type(obj)
