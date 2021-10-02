@@ -3353,3 +3353,6 @@ def distribute(current_chord,
 
 def stopall():
     pygame.mixer.music.stop()
+
+jchord = getchord
+jnotes = chord
