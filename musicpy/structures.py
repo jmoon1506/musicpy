@@ -470,6 +470,8 @@ class chord:
             else:
                 for k in range(len(duration)):
                     self.notes[k].duration = duration[k]
+        self.original_root = self.notes[0]
+        self.original_mode = 'major'
 
     def get_duration(self):
         return [i.duration for i in self.notes]
@@ -817,6 +819,10 @@ class chord:
             # fill gap to next bar
             tmp[i] = int(bars)+1 - bars
         return self.set(tmp, tmp)
+
+    def jmod(self, new_scale):
+        print(self.pitch)
+        return self.modulation(scale(self.original_root, self.original_mode), new_scale)
 
     def standardize(self):
         temp = self.only_notes()

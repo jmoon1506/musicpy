@@ -193,7 +193,10 @@ def getchord(start,
     if sharp != None:
         for every in sharp:
             chordlist[every - 1] = chordlist[every - 1].up()
-    return chord(chordlist, duration, intervals, start_time=start_time)
+    out_chord = chord(chordlist, duration, intervals, start_time=start_time)
+    out_chord.original_root = start
+    out_chord.original_mode = mode
+    return out_chord
 
 
 chd = getchord
