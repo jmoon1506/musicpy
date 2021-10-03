@@ -470,8 +470,6 @@ class chord:
             else:
                 for k in range(len(duration)):
                     self.notes[k].duration = duration[k]
-        self.original_root = self.notes[0]
-        self.original_mode = 'major'
 
     def get_duration(self):
         return [i.duration for i in self.notes]
@@ -820,10 +818,6 @@ class chord:
             tmp[i] = int(bars)+1 - bars
         return self.set(tmp, tmp)
 
-    def jmod(self, new_scale):
-        print(self.pitch)
-        return self.modulation(scale(self.original_root, self.original_mode), new_scale)
-
     def standardize(self):
         temp = self.only_notes()
         notenames = temp.names()
@@ -862,6 +856,9 @@ class chord:
                        duration,
                        interval,
                        start_time=copy(self.start_time))
+        setattr(result, 'modified_indices', getattr(self, 'modified_indices', None))
+        setattr(result, 'modified_interval', interval)
+        setattr(result, 'modified_duration', duration)
         if volume is not None:
             result.setvolume(volume, ind)
         return result
@@ -1140,9 +1137,13 @@ class chord:
                     current_note = temp[-num] - pitch * octave
                 result.append(current_note)
                 result_interval.append(temp.interval[num - 1])
-        return chord(result,
+        outchord = chord(result,
                      interval=result_interval,
                      start_time=temp.start_time)
+        setattr(outchord, 'modified_indices', ls)
+        setattr(outchord, 'modified_interval', getattr(self, 'modified_interval', None))
+        setattr(outchord, 'modified_duration', getattr(self, 'modified_duration', None))
+        return outchord
 
     def pop(self, ind=None):
         if ind is None:

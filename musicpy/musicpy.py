@@ -193,10 +193,7 @@ def getchord(start,
     if sharp != None:
         for every in sharp:
             chordlist[every - 1] = chordlist[every - 1].up()
-    out_chord = chord(chordlist, duration, intervals, start_time=start_time)
-    out_chord.original_root = start
-    out_chord.original_mode = mode
-    return out_chord
+    return chord(chordlist, duration, intervals, start_time=start_time)
 
 
 chd = getchord
@@ -3360,3 +3357,15 @@ def stopall():
 jchord = getchord
 jnotes = chord
 jpiece = build
+
+def jmod(in_chord, start, mode):
+    out_chord = jchord(start, mode)
+
+    modified_indices = getattr(in_chord, 'modified_indices', None)
+    modified_interval = getattr(in_chord, 'modified_interval', None)
+    modified_duration = getattr(in_chord, 'modified_duration', None)
+    if modified_indices:
+        out_chord = out_chord.get(modified_indices)
+    if modified_interval and modified_duration:
+        out_chord = out_chord.set(duration=modified_duration, interval=modified_interval)
+    return out_chord
