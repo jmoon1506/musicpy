@@ -805,6 +805,19 @@ class chord:
         elif types in [str, note]:
             return self.on(alist)
 
+    def __rshift__(self, alist):
+        assert(type(alist) in [list, tuple])
+        assert(len(alist) == len(self))
+        tmp = copy(list(alist))
+        if '*' in tmp:
+            i = tmp.index('*')
+            tmp[i] = 0
+            bars = sum(tmp)
+
+            # fill gap to next bar
+            tmp[i] = int(bars)+1 - bars
+        return self.set(tmp, tmp)
+
     def standardize(self):
         temp = self.only_notes()
         notenames = temp.names()

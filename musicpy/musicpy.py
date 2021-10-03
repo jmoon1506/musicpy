@@ -3356,3 +3356,4 @@ def stopall():
 
 jchord = getchord
 jnotes = chord
+jpiece = build
